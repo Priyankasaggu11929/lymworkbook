@@ -2,8 +2,6 @@
 
 import os
 import sys
-import pytz
-from datetime import datetime
 from .utils import system, success, fail
 
 
@@ -15,6 +13,11 @@ def setup():
 def verify():
     "Verify timezonechange"
 
-    if os.popen("date +%T").read().strip("\n") != datetime.now(pytz.timezone("US/Pacific")).strftime("%H:%M:%S"):
+    SFOtimezone = "/usr/share/zoneinfo/US/Pacific"
+    localtimezone = "/etc/localtime"
+
+    if os.popen("zdump {}".format(localtimezone)).read().strip(
+        localtimezone
+    ) != os.popen("zdump {}".format(SFOtimezone)).read().strip(SFOtimezone):
         fail("Time zone not changed")
     success()
