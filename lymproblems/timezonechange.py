@@ -15,8 +15,6 @@ def setup():
 def verify():
     "Verify timezonechange"
 
-    if os.popen("date +%T").read().strip("\n") != str(
-        datetime.now(pytz.timezone("US/Pacific")).strftime("%H:%M:%S")
-    ):
+    if os.popen("date +%T").read().strip("\n") != datetime.now(pytz.timezone("US/Pacific")).strftime("%H:%M:%S"):
         fail("Time zone not changed")
     success()
