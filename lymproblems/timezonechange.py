@@ -13,11 +13,8 @@ def setup():
 def verify():
     "Verify timezonechange"
 
-    SFOtimezone = "/usr/share/zoneinfo/US/Pacific"
-    localtimezone = "/etc/localtime"
-
-    if os.popen("zdump {}".format(localtimezone)).read().strip(
-        localtimezone
-    ) != os.popen("zdump {}".format(SFOtimezone)).read().strip(SFOtimezone):
+    if os.path.realpath("/etc/localtime") != os.path.realpath(
+        "/usr/share/zoneinfo/US/Pacific"
+    ):
         fail("Time zone not changed")
     success()
