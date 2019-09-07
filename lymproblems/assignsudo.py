@@ -14,6 +14,6 @@ def verify():
     "Verify problemname"
     user = "lym"
 
-    if user not in os.popen("getent group sudo").read():
+    if user not in system("getent group sudo"):
         fail("User {} is not allowed to run sudo on test-server.".format(user))
     success()
